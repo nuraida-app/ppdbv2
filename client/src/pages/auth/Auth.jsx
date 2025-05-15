@@ -64,9 +64,9 @@ const Auth = ({ data }) => {
         const user = response;
         if (user) {
           if (user.peran === "admin") {
-            navigate("/admin-dashboard");
+            window.location.href = "/admin-dashboard";
           } else if (user.peran === "user") {
-            navigate("/user-dashboard");
+            window.location.href = "/user-dashboard";
           }
         }
       } catch (error) {

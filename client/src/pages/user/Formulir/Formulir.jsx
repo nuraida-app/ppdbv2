@@ -19,10 +19,12 @@ import OrangTua from "./OrangTua";
 import Alamat from "./Alamat";
 import AsalSekolah from "./AsalSekolah";
 import Keluarga from "./Keluarga";
+import Berkas from "./Berkas";
 import PaymentRequired from "../../components/PaymentRequired";
 import { useGetFormQuery } from "../../../controller/api/form/ApiForm";
 import { useSelector } from "react-redux";
 import { useMyPaymentQuery } from "../../../controller/api/payment/ApiPayment";
+
 const { Option } = Select;
 
 const Formulir = () => {
@@ -111,7 +113,7 @@ const Formulir = () => {
 
   if (isLoadingPayment || isLoadingForm) {
     return (
-      <UserLayout>
+      <UserLayout title="Formulir">
         <Card>
           <div style={{ textAlign: "center", padding: "50px" }}>
             <Spin size="large" />
@@ -125,14 +127,14 @@ const Formulir = () => {
   // Show payment required message if payment is not completed
   if (!payment?.ket) {
     return (
-      <UserLayout>
+      <UserLayout title="Formulir">
         <PaymentRequired />
       </UserLayout>
     );
   }
 
   return (
-    <UserLayout>
+    <UserLayout title="Formulir">
       <Card title="Formulir Pendaftaran">
         <Tabs
           defaultActiveKey="dataDiri"
@@ -197,6 +199,11 @@ const Formulir = () => {
                   onSave={(values) => handleSectionSave("Keluarga", values)}
                 />
               ),
+            },
+            {
+              key: "berkas",
+              label: "Berkas",
+              children: <Berkas value={formData.documents} />,
             },
           ]}
         />

@@ -134,7 +134,7 @@ const AdminGrade = () => {
   ];
 
   return (
-    <AdminLayout>
+    <AdminLayout title="Jenjang">
       <div style={{ marginBottom: 16 }}>
         <Space>
           <Input.Search

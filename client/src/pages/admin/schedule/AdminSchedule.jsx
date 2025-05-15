@@ -167,7 +167,7 @@ const AdminSchedule = () => {
   ];
 
   return (
-    <AdminLayout>
+    <AdminLayout title="Jadwal">
       <div style={{ padding: "24px" }}>
         <div style={{ marginBottom: "16px" }}>
           <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>

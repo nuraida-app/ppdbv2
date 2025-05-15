@@ -13,6 +13,8 @@ const PrintPage = () => {
   const { userId } = useParams();
   const { data: formData, isLoading } = useGetFormQuery(userId);
 
+  console.log(formData);
+
   if (isLoading || !formData) {
     return <LoadingComponent />;
   }

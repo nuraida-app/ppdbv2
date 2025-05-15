@@ -64,7 +64,7 @@ const AdminDash = () => {
   ];
 
   return (
-    <AdminLayout>
+    <AdminLayout title="Dashboard">
       <Row gutter={[16, 16]}>
         {/* Statistik Pendaftar */}
         <Col xs={24} sm={12} lg={8}>

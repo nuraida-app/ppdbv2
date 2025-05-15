@@ -229,3 +229,11 @@ CREATE TABLE user_info(
     createdat timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(id)
 );
+
+UPDATE berkas 
+SET file_link = REPLACE(file_link, 'https://ppdb-api.nibs.sch.id', '')
+WHERE file_link LIKE '%https://ppdb-api.nibs.sch.id%';
+
+UPDATE pembayaran 
+SET berkas = REPLACE(berkas, 'https://ppdb-api.nibs.sch.id', '')
+WHERE berkas LIKE '%https://ppdb-api.nibs.sch.id%';

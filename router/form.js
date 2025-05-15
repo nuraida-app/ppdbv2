@@ -511,4 +511,42 @@ router.put("/ubah-status", authorize("admin"), async (req, res) => {
   }
 });
 
+router.delete("/hapus-berkas/:id", authorize("user"), async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    // 1. Ambil data file dari database
+    const data = await client.query(`SELECT * FROM berkas WHERE id = $1`, [id]);
+    if (data.rowCount === 0) {
+      return res.status(404).json({ message: "Berkas tidak ditemukan" });
+    }
+    const fileLink = data.rows[0].file_link;
+
+    // 2. Hapus file fisik jika ada
+    if (fileLink) {
+      let filePath = fileLink;
+      // Hilangkan domain jika ada
+      if (filePath.startsWith("http")) {
+        filePath = "/" + filePath.split("/").slice(3).join("/");
+      }
+      // Hilangkan undefined jika ada
+      filePath = filePath.replace(/^undefined/, "");
+      // Pastikan path relatif dari root project
+      filePath = "." + filePath;
+
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+    }
+
+    // 3. Hapus data dari database
+    await client.query(`DELETE FROM berkas WHERE id = $1`, [id]);
+
+    res.status(200).json({ message: "Berkas berhasil dihapus" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: error.message });
+  }
+});
+
 export default router;

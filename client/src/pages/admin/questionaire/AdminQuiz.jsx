@@ -15,7 +15,7 @@ import {
   useGetQuizzesQuery,
   useAddQuizMutation,
   useDeleteQuizMutation,
-} from "../../../controller/api/admin/ApiQuiz";
+} from "../../../controller/api/quiz/ApiQuiz";
 import Editor from "../Editor/Editor";
 
 const { Option } = Select;
@@ -159,7 +159,7 @@ const AdminQuiz = () => {
   ];
 
   return (
-    <AdminLayout>
+    <AdminLayout title="Kuisioner">
       <div style={{ marginBottom: 16 }}>
         <Space>
           <Input.Search

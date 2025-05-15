@@ -65,7 +65,7 @@ const AdminSetting = () => {
 
   if (isLoading) {
     return (
-      <AdminLayout>
+      <AdminLayout title="Pengaturan Website">
         <div
           style={{
             position: "fixed",
@@ -97,7 +97,7 @@ const AdminSetting = () => {
 
   if (isError) {
     return (
-      <AdminLayout>
+      <AdminLayout title="Pengaturan Website">
         <Card>
           <Typography.Text type="danger">
             Error: {error?.data?.message || "Gagal memuat pengaturan"}
@@ -108,7 +108,7 @@ const AdminSetting = () => {
   }
 
   return (
-    <AdminLayout>
+    <AdminLayout title="Pengaturan Website">
       <Card
         title="Pengaturan Website"
         style={{ maxWidth: 800, margin: "0 auto" }}

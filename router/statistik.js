@@ -74,8 +74,8 @@ router.get("/data-dashboard", authorize("admin"), async (req, res) => {
       pendaftarStats: `
         SELECT 
           COUNT(*) as total_pendaftar,
-          COUNT(CASE WHEN kelamin = 'L' THEN 1 END) as total_laki,
-          COUNT(CASE WHEN kelamin = 'P' THEN 1 END) as total_perempuan
+          COUNT(CASE WHEN kelamin = 'm' THEN 1 END) as total_laki,
+          COUNT(CASE WHEN kelamin = 'f' THEN 1 END) as total_perempuan
         FROM pendaftar
       `,
 

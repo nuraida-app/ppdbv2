@@ -122,7 +122,7 @@ const AdminPayment = () => {
   ];
 
   return (
-    <AdminLayout>
+    <AdminLayout title="Data Pembayaran">
       <div style={{ padding: "24px" }}>
         <Title level={2}>Data Pembayaran</Title>
 

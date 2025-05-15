@@ -123,6 +123,12 @@ router.put("/update-profile", authorize("user", "admin"), async (req, res) => {
         [nama, email, hash, tlp, id]
       );
 
+      await client.query(
+        `UPDATE pendaftar SET nama = $1
+        WHERE userid = $2`,
+        [nama, id]
+      );
+
       return res
         .status(200)
         .json({ message: "Profile dan password berhasil diperbarui" });
@@ -133,6 +139,12 @@ router.put("/update-profile", authorize("user", "admin"), async (req, res) => {
       `UPDATE user_info SET nama = $1, email = $2, tlp = $3
       WHERE id = $4`,
       [nama, email, tlp, id]
+    );
+
+    await client.query(
+      `UPDATE pendaftar SET nama = $1
+        WHERE userid = $2`,
+      [nama, id]
     );
 
     res.status(200).json({ message: "Profile berhasil diperbarui" });
@@ -232,5 +244,154 @@ router.post("/logout", authorize("user", "admin"), async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 });
+
+// User Dashboard
+router.get("/dashboard", authorize("user"), async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    // Get pendaftar data
+    const pendaftarResult = await client.query(
+      `SELECT p.*, j.nama as jenjang_nama, s.nama as sekolah_nama 
+       FROM pendaftar p 
+       LEFT JOIN jenjang j ON p.jenjang_id = j.id 
+       LEFT JOIN sekolah s ON p.sekolah_id = s.id 
+       WHERE p.userid = $1`,
+      [userId]
+    );
+
+    // Get alamat data
+    const alamatResult = await client.query(
+      `SELECT * FROM alamat WHERE userid = $1`,
+      [userId]
+    );
+
+    // Get asal_sekolah data
+    const asalSekolahResult = await client.query(
+      `SELECT * FROM asal_sekolah WHERE userid = $1`,
+      [userId]
+    );
+
+    // Get pembayaran data
+    const pembayaranResult = await client.query(
+      `SELECT * FROM pembayaran WHERE user_id = $1 ORDER BY tgl_bayar DESC LIMIT 1`,
+      [userId]
+    );
+
+    // Get jadwal data
+    const jadwalResult = await client.query(
+      `SELECT ju.*, j.kegiatan, j.waktu, j.mode 
+       FROM jadwal_user ju 
+       LEFT JOIN jadwal j ON ju.jadwal_id = j.id 
+       WHERE ju.user_id = $1 
+       ORDER BY ju.waktu ASC`,
+      [userId]
+    );
+
+    // Calculate registration progress
+    const progress = calculateProgress(
+      pendaftarResult.rows[0],
+      alamatResult.rows[0],
+      asalSekolahResult.rows[0],
+      pembayaranResult.rows[0]
+    );
+
+    res.status(200).json({
+      pendaftar: pendaftarResult.rows[0] || null,
+      alamat: alamatResult.rows[0] || null,
+      asal_sekolah: asalSekolahResult.rows[0] || null,
+      pembayaran: pembayaranResult.rows[0] || null,
+      jadwal: jadwalResult.rows || [],
+      progress,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: error.message });
+  }
+});
+
+// Helper function to calculate registration progress
+function calculateProgress(pendaftar, alamat, asalSekolah, pembayaran) {
+  let progress = 0;
+  const totalSteps = 4; // Total number of steps in registration
+
+  // Step 1: Check pendaftar data
+  if (pendaftar) {
+    const requiredPendaftarFields = [
+      "nama",
+      "nisn",
+      "no_kk",
+      "nik",
+      "no_akta",
+      "tempat_lahir",
+      "tanggal_lahir",
+      "kelamin",
+      "agama",
+      "anak_ke",
+      "jml_saudara",
+      "tinggi",
+      "berat",
+      "kepala",
+      "ayah_nik",
+      "ayah_nama",
+      "ayah_tempat_lahir",
+      "ayah_tanggal_lahir",
+      "ayah_pendidikan",
+      "ayah_pekerjaan",
+      "ayah_no_tlp",
+      "ibu_nik",
+      "ibu_nama",
+      "ibu_tempat_lahir",
+      "ibu_tanggal_lahir",
+      "ibu_pendidikan",
+      "ibu_pekerjaan",
+      "ibu_no_tlp",
+    ];
+
+    const pendaftarComplete = requiredPendaftarFields.every(
+      (field) => pendaftar[field]
+    );
+    if (pendaftarComplete) progress++;
+  }
+
+  // Step 2: Check alamat data
+  if (alamat) {
+    const requiredAlamatFields = [
+      "provinsi",
+      "kota",
+      "kecamatan",
+      "desa",
+      "alamat",
+      "kode_pos",
+      "jarak",
+      "transportasi",
+    ];
+
+    const alamatComplete = requiredAlamatFields.every((field) => alamat[field]);
+    if (alamatComplete) progress++;
+  }
+
+  // Step 3: Check asal_sekolah data
+  if (asalSekolah) {
+    const requiredAsalSekolahFields = [
+      "npsn",
+      "nama",
+      "provinsi",
+      "kota",
+      "kecamatan",
+      "desa",
+    ];
+
+    const asalSekolahComplete = requiredAsalSekolahFields.every(
+      (field) => asalSekolah[field]
+    );
+    if (asalSekolahComplete) progress++;
+  }
+
+  // Step 4: Check payment status
+  if (pembayaran && pembayaran.ket) progress++;
+
+  return Math.round((progress / totalSteps) * 100);
+}
 
 export default router;

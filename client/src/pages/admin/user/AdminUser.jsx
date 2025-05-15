@@ -73,7 +73,7 @@ const AdminUser = () => {
   ];
 
   return (
-    <AdminLayout>
+    <AdminLayout title="Manajemen Pengguna">
       <div style={{ marginBottom: 16 }}>
         <Space>
           <Input.Search

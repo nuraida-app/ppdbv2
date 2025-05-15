@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Layout,
   Menu,
@@ -24,16 +24,21 @@ import {
 } from "@ant-design/icons";
 import { useLogoutMutation } from "../../../controller/api/auth/ApiUser";
 import { useGetSettingQuery } from "../../../controller/api/admin/ApiSetting";
+import { useSelector } from "react-redux";
+
 const { Header, Sider, Content } = Layout;
 const { Text } = Typography;
 
-const UserLayout = ({ children }) => {
+const UserLayout = ({ children, title }) => {
   const [collapsed, setCollapsed] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const { user } = useSelector((state) => state.auth);
 
   const { data: setting, isLoading } = useGetSettingQuery();
 
@@ -41,6 +46,21 @@ const UserLayout = ({ children }) => {
   const currentPath = location.pathname.replace("/user-", "");
 
   const [logout] = useLogoutMutation();
+
+  // Add screen size detection
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768);
+      if (window.innerWidth < 768) {
+        setCollapsed(true);
+      }
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -51,6 +71,16 @@ const UserLayout = ({ children }) => {
       message.error(error.data?.message || "Gagal logout");
     }
   };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (user?.peran !== "user") {
+        navigate("/");
+      }
+    }, 500);
+
+    return () => clearTimeout(timeout);
+  }, [user]);
 
   const profileItems = [
     {
@@ -97,13 +127,16 @@ const UserLayout = ({ children }) => {
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
+      <title>{title}</title>
       <Sider
         trigger={null}
         collapsible
         collapsed={collapsed}
         style={{
-          display: collapsed ? "none" : "block",
+          display: isMobile && collapsed ? "none" : "block",
         }}
+        breakpoint="md"
+        collapsedWidth={isMobile ? 0 : 80}
       >
         <div
           style={{
@@ -163,17 +196,30 @@ const UserLayout = ({ children }) => {
             justifyContent: "space-between",
           }}
         >
-          <Button
-            type="primary"
-            color="primary"
-            variant="solid"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
-            style={{
-              fontSize: "16px",
-              marginLeft: "16px",
-            }}
-          />
+          <Flex direction="horizontal" align="center" gap={8}>
+            <Button
+              type="primary"
+              color="primary"
+              variant="solid"
+              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              onClick={() => setCollapsed(!collapsed)}
+              style={{
+                fontSize: "16px",
+                marginLeft: "16px",
+              }}
+            />
+            <Text
+              style={{
+                fontSize: "16px",
+                fontWeight: "bold",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
+              {title}
+            </Text>
+          </Flex>
 
           <Dropdown
             menu={{ items: profileItems }}

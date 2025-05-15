@@ -148,7 +148,7 @@ const AdminInfo = () => {
   ];
 
   return (
-    <AdminLayout>
+    <AdminLayout title="Informasi">
       <div style={{ marginBottom: 16 }}>
         <Space>
           <Input.Search

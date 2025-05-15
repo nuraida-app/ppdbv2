@@ -11,7 +11,6 @@ import { ApiSchool } from "./api/admin/ApiSchool";
 import { ApiGrade } from "./api/admin/ApiGrade";
 import { ApiSchedule } from "./api/admin/ApiSchedule";
 import { ApiInfo } from "./api/admin/ApiInfo";
-import { ApiQuiz } from "./api/admin/ApiQuiz";
 import { ApiSetting } from "./api/admin/ApiSetting";
 
 // Payment
@@ -20,6 +19,9 @@ import { ApiPayment } from "./api/payment/ApiPayment";
 // Form
 import { ApiForm } from "./api/form/ApiForm";
 import { ApiArea } from "./api/form/ApiArea";
+
+// Quiz
+import { ApiQuiz } from "./api/quiz/ApiQuiz";
 
 const store = configureStore({
   reducer: {

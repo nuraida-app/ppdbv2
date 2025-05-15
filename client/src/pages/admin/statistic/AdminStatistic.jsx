@@ -38,7 +38,7 @@ const AdminStatistic = () => {
 
   if (isLoadingDemographic || isLoadingMedia) {
     return (
-      <AdminLayout>
+      <AdminLayout title="Statistik">
         <div
           style={{
             display: "flex",
@@ -132,7 +132,7 @@ const AdminStatistic = () => {
   };
 
   return (
-    <AdminLayout>
+    <AdminLayout title="Statistik">
       <Row gutter={[16, 16]}>
         {/* Provinsi Chart */}
         <Col xs={24} lg={12}>

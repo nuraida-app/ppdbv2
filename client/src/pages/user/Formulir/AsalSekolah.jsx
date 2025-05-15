@@ -16,7 +16,6 @@ const AsalSekolah = ({ value, onChange, onSave }) => {
     }
   };
 
-  console.log(value);
   return (
     <Form
       form={form}
@@ -26,7 +25,7 @@ const AsalSekolah = ({ value, onChange, onSave }) => {
       onFinish={handleSubmit}
     >
       <Row gutter={16}>
-        <Col span={12}>
+        <Col xs={24} sm={24} md={12}>
           <Form.Item
             name="nama"
             label="Nama Sekolah"
@@ -35,7 +34,7 @@ const AsalSekolah = ({ value, onChange, onSave }) => {
             <Input />
           </Form.Item>
         </Col>
-        <Col span={12}>
+        <Col xs={24} sm={24} md={12}>
           <Form.Item
             name="npsn"
             label="NPSN"
@@ -47,7 +46,7 @@ const AsalSekolah = ({ value, onChange, onSave }) => {
       </Row>
 
       <Row gutter={16}>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item
             name="provinsi"
             label="Provinsi"
@@ -56,7 +55,7 @@ const AsalSekolah = ({ value, onChange, onSave }) => {
             <Input />
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item
             name="kota"
             label="Kota/Kabupaten"
@@ -65,7 +64,7 @@ const AsalSekolah = ({ value, onChange, onSave }) => {
             <Input />
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item
             name="kecamatan"
             label="Kecamatan"
@@ -77,7 +76,7 @@ const AsalSekolah = ({ value, onChange, onSave }) => {
       </Row>
 
       <Row gutter={16}>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item
             name="desa"
             label="Desa/Kelurahan"

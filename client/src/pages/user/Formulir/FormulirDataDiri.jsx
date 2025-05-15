@@ -93,7 +93,7 @@ const FormulirDataDiri = ({ value, onChange, onSave }) => {
       onFinish={handleSubmit}
     >
       <Row gutter={16}>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item name="tapel" label="Tahun Pelajaran">
             <Select placeholder="Pilih Tahun Pelajaran">
               {years?.map((year) => (
@@ -104,7 +104,7 @@ const FormulirDataDiri = ({ value, onChange, onSave }) => {
             </Select>
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item name="jenjang" label="Jenjang">
             <Select placeholder="Pilih Jenjang">
               {levels?.map((level) => (
@@ -115,7 +115,7 @@ const FormulirDataDiri = ({ value, onChange, onSave }) => {
             </Select>
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item name="sekolah" label="Sekolah">
             <Select placeholder="Pilih Sekolah">
               {schools?.map((school) => (
@@ -129,17 +129,17 @@ const FormulirDataDiri = ({ value, onChange, onSave }) => {
       </Row>
 
       <Row gutter={16}>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item name="nisn" label="NISN">
             <Input />
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item name="no_kk" label="Nomor KK">
             <Input />
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item name="nik" label="NIK">
             <Input />
           </Form.Item>
@@ -147,17 +147,17 @@ const FormulirDataDiri = ({ value, onChange, onSave }) => {
       </Row>
 
       <Row gutter={16}>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item name="no_akta" label="Nomor Akta">
             <Input />
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item name="nama_lengkap" label="Nama Lengkap">
             <Input />
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item name="tempat_lahir" label="Tempat Lahir">
             <Input />
           </Form.Item>
@@ -165,12 +165,12 @@ const FormulirDataDiri = ({ value, onChange, onSave }) => {
       </Row>
 
       <Row gutter={16}>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item name="tanggal_lahir" label="Tanggal Lahir">
             <DatePicker style={{ width: "100%" }} format="YYYY-MM-DD" />
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item name="kelamin" label="Jenis Kelamin">
             <Select placeholder="Pilih Jenis Kelamin">
               <Option value="m">Laki-laki</Option>
@@ -178,7 +178,7 @@ const FormulirDataDiri = ({ value, onChange, onSave }) => {
             </Select>
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item name="agama" label="Agama">
             <Select placeholder="Pilih Agama">
               <Option value="Islam">Islam</Option>
@@ -193,12 +193,12 @@ const FormulirDataDiri = ({ value, onChange, onSave }) => {
       </Row>
 
       <Row gutter={16}>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item name="anak_ke" label="Anak Ke">
             <InputNumber min={1} style={{ width: "100%" }} />
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item name="jml_saudara" label="Jumlah Saudara">
             <InputNumber min={0} style={{ width: "100%" }} />
           </Form.Item>
@@ -206,17 +206,17 @@ const FormulirDataDiri = ({ value, onChange, onSave }) => {
       </Row>
 
       <Row gutter={16}>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item name="tb" label="Tinggi Badan (cm)">
             <InputNumber min={0} style={{ width: "100%" }} />
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item name="bb" label="Berat Badan (kg)">
             <InputNumber min={0} style={{ width: "100%" }} />
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item name="lingkar_kepala" label="Lingkar Kepala (cm)">
             <InputNumber min={0} style={{ width: "100%" }} />
           </Form.Item>

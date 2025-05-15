@@ -1,7 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { useGetAnswerQuery } from "../../../controller/api/admin/ApiQuiz";
+import { useGetAnswerQuery } from "../../../controller/api/quiz/ApiQuiz";
 import { Typography, List, Card, Button } from "antd";
 import html2pdf from "html2pdf.js";
 import { CloudDownloadOutlined } from "@ant-design/icons";

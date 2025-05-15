@@ -9,7 +9,9 @@ import {
   message,
   Table,
   Space,
+  Flex,
 } from "antd";
+import { UserAddOutlined } from "@ant-design/icons";
 import {
   useGetFamilyFormQuery,
   useAddFamilyMutation,
@@ -82,8 +84,8 @@ const Keluarga = ({ value, onChange, onSave }) => {
   return (
     <div>
       <Form form={form} layout="vertical" onFinish={handleSubmit}>
-        <Row gutter={16}>
-          <Col span={12}>
+        <Row gutter={16} align="middle">
+          <Col xs={24} sm={24} md={12}>
             <Form.Item
               name="nama"
               label="Nama Anggota Keluarga"
@@ -92,7 +94,7 @@ const Keluarga = ({ value, onChange, onSave }) => {
               <Input />
             </Form.Item>
           </Col>
-          <Col span={12}>
+          <Col xs={24} sm={24} md={8}>
             <Form.Item
               name="tgl"
               label="Tanggal Lahir"
@@ -101,13 +103,23 @@ const Keluarga = ({ value, onChange, onSave }) => {
               <DatePicker style={{ width: "100%" }} />
             </Form.Item>
           </Col>
+          <Col
+            xs={24}
+            sm={24}
+            md={4}
+            style={{ display: "flex", alignItems: "center", marginTop: 30 }}
+          >
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={isAdding}
+              icon={<UserAddOutlined />}
+              style={{ width: "100%" }}
+            >
+              Tambah
+            </Button>
+          </Col>
         </Row>
-
-        <Form.Item>
-          <Button type="primary" htmlType="submit" loading={isAdding}>
-            Tambah
-          </Button>
-        </Form.Item>
       </Form>
 
       <Table

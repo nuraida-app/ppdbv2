@@ -75,7 +75,7 @@ const OrangTua = ({ value, onChange, onSave }) => {
     >
       <h3>Data Ayah</h3>
       <Row gutter={16}>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item
             name="ayah_nik"
             label="NIK Ayah"
@@ -84,7 +84,7 @@ const OrangTua = ({ value, onChange, onSave }) => {
             <Input />
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item
             name="ayah_nama"
             label="Nama Ayah"
@@ -93,7 +93,7 @@ const OrangTua = ({ value, onChange, onSave }) => {
             <Input />
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item
             name="ayah_tempat_lahir"
             label="Tempat Lahir Ayah"
@@ -107,7 +107,7 @@ const OrangTua = ({ value, onChange, onSave }) => {
       </Row>
 
       <Row gutter={16}>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item
             name="ayah_tanggal_lahir"
             label="Tanggal Lahir Ayah"
@@ -122,7 +122,7 @@ const OrangTua = ({ value, onChange, onSave }) => {
             />
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item
             name="ayah_pendidikan"
             label="Pendidikan Ayah"
@@ -139,7 +139,7 @@ const OrangTua = ({ value, onChange, onSave }) => {
             </Select>
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item
             name="ayah_pekerjaan"
             label="Pekerjaan Ayah"
@@ -151,7 +151,7 @@ const OrangTua = ({ value, onChange, onSave }) => {
       </Row>
 
       <Row gutter={16}>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item
             name="ayah_no_tlp"
             label="Nomor Telepon Ayah"
@@ -166,7 +166,7 @@ const OrangTua = ({ value, onChange, onSave }) => {
 
       <h3>Data Ibu</h3>
       <Row gutter={16}>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item
             name="ibu_nik"
             label="NIK Ibu"
@@ -175,7 +175,7 @@ const OrangTua = ({ value, onChange, onSave }) => {
             <Input />
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item
             name="ibu_nama"
             label="Nama Ibu"
@@ -184,7 +184,7 @@ const OrangTua = ({ value, onChange, onSave }) => {
             <Input />
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item
             name="ibu_tempat_lahir"
             label="Tempat Lahir Ibu"
@@ -198,7 +198,7 @@ const OrangTua = ({ value, onChange, onSave }) => {
       </Row>
 
       <Row gutter={16}>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item
             name="ibu_tanggal_lahir"
             label="Tanggal Lahir Ibu"
@@ -213,7 +213,7 @@ const OrangTua = ({ value, onChange, onSave }) => {
             />
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item
             name="ibu_pendidikan"
             label="Pendidikan Ibu"
@@ -230,7 +230,7 @@ const OrangTua = ({ value, onChange, onSave }) => {
             </Select>
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item
             name="ibu_pekerjaan"
             label="Pekerjaan Ibu"
@@ -242,7 +242,7 @@ const OrangTua = ({ value, onChange, onSave }) => {
       </Row>
 
       <Row gutter={16}>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item
             name="ibu_no_tlp"
             label="Nomor Telepon Ibu"

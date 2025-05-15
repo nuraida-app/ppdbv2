@@ -134,7 +134,7 @@ const AdminSchool = () => {
   ];
 
   return (
-    <AdminLayout>
+    <AdminLayout title="Sekolah">
       <div style={{ marginBottom: 16 }}>
         <Space>
           <Input.Search

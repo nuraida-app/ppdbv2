@@ -14,7 +14,7 @@ const Pembayaran = () => {
 
   if (isLoading) {
     return (
-      <UserLayout>
+      <UserLayout title="Pembayaran">
         <Card>
           <div style={{ textAlign: "center", padding: "50px" }}>
             <Spin size="large" />
@@ -26,7 +26,7 @@ const Pembayaran = () => {
   }
 
   return (
-    <UserLayout>
+    <UserLayout title="Pembayaran">
       {data?.ket ? <Invoice data={data} /> : <PaymentForm user={user} />}
     </UserLayout>
   );

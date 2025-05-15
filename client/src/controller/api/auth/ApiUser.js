@@ -27,6 +27,12 @@ export const ApiUsers = createApi({
         method: "POST",
       }),
     }),
+    getDashboard: builder.mutation({
+      query: () => ({
+        url: "/dashboard",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -34,4 +40,5 @@ export const {
   useGetUsersMutation,
   useUpdateProfileMutation,
   useLogoutMutation,
+  useGetDashboardMutation,
 } = ApiUsers;

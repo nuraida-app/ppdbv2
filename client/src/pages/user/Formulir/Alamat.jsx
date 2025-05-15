@@ -152,7 +152,7 @@ const Alamat = ({ value, onChange, onSave }) => {
       onFinish={handleSubmit}
     >
       <Row gutter={16}>
-        <Col span={24}>
+        <Col xs={24} sm={24} md={24}>
           <Form.Item name="alamat" label="Alamat Lengkap">
             <Input.TextArea rows={4} />
           </Form.Item>
@@ -160,7 +160,7 @@ const Alamat = ({ value, onChange, onSave }) => {
       </Row>
 
       <Row gutter={16}>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item name="provinsi" label="Provinsi">
             <Select
               placeholder="Pilih Provinsi"
@@ -175,7 +175,7 @@ const Alamat = ({ value, onChange, onSave }) => {
             </Select>
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item name="kota" label="Kota/Kabupaten">
             <Select
               placeholder="Pilih Kota/Kabupaten"
@@ -191,7 +191,7 @@ const Alamat = ({ value, onChange, onSave }) => {
             </Select>
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item name="kecamatan" label="Kecamatan">
             <Select
               placeholder="Pilih Kecamatan"
@@ -210,7 +210,7 @@ const Alamat = ({ value, onChange, onSave }) => {
       </Row>
 
       <Row gutter={16}>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item name="desa" label="Desa/Kelurahan">
             <Select
               placeholder="Pilih Desa/Kelurahan"
@@ -226,12 +226,12 @@ const Alamat = ({ value, onChange, onSave }) => {
             </Select>
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item name="kode_pos" label="Kode Pos">
             <Input />
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item name="jarak" label="Jarak ke Sekolah (km)">
             <InputNumber min={0} style={{ width: "100%" }} />
           </Form.Item>
@@ -239,7 +239,7 @@ const Alamat = ({ value, onChange, onSave }) => {
       </Row>
 
       <Row gutter={16}>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Form.Item name="transportasi" label="Transportasi ke Sekolah">
             <Select placeholder="Pilih Transportasi">
               <Option value="Mobil Pribadi">Mobil Pribadi</Option>

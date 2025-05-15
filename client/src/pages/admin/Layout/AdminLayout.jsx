@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Layout,
   Menu,
@@ -28,17 +28,20 @@ import {
 } from "@ant-design/icons";
 import { useGetSettingQuery } from "../../../controller/api/admin/ApiSetting";
 import { useLogoutMutation } from "../../../controller/api/auth/ApiUser";
-
+import { useSelector } from "react-redux";
 const { Header, Sider, Content } = Layout;
 const { Text } = Typography;
 
-const AdminLayout = ({ children }) => {
+const AdminLayout = ({ children, title }) => {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const { user } = useSelector((state) => state.auth);
+  console.log(user);
 
   // Get current path without leading slash
   const currentPath = location.pathname.replace("/admin-", "");
@@ -55,6 +58,16 @@ const AdminLayout = ({ children }) => {
       message.error(error.data?.message || "Gagal logout");
     }
   };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (user?.peran !== "admin") {
+        navigate("/");
+      }
+    }, 500);
+
+    return () => clearTimeout(timeout);
+  }, [user]);
 
   const profileItems = [
     {
@@ -148,6 +161,7 @@ const AdminLayout = ({ children }) => {
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
+      <title>{title}</title>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div
           style={{
@@ -207,17 +221,22 @@ const AdminLayout = ({ children }) => {
             justifyContent: "space-between",
           }}
         >
-          <Button
-            type="primary"
-            color="primary"
-            variant="solid"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
-            style={{
-              fontSize: "16px",
-              marginLeft: "16px",
-            }}
-          />
+          <Flex direction="horizontal" align="center" gap={8}>
+            <Button
+              type="primary"
+              color="primary"
+              variant="solid"
+              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              onClick={() => setCollapsed(!collapsed)}
+              style={{
+                fontSize: "16px",
+                marginLeft: "16px",
+              }}
+            />
+            <Text style={{ fontSize: "16px", fontWeight: "bold" }}>
+              {title}
+            </Text>
+          </Flex>
 
           <Dropdown
             menu={{ items: profileItems }}

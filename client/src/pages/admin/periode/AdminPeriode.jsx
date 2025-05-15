@@ -106,14 +106,14 @@ const AdminPeriode = () => {
 
   if (isLoading) {
     return (
-      <AdminLayout>
+      <AdminLayout title="Periode">
         <div>Loading...</div>
       </AdminLayout>
     );
   }
 
   return (
-    <AdminLayout>
+    <AdminLayout title="Periode">
       <div style={{ marginBottom: 16 }}>
         <Button type="primary" onClick={() => showModal()}>
           Tambah Periode

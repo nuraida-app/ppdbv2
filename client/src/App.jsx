@@ -59,6 +59,10 @@ const UserDash = lazy(() =>
   import(/* webpackPrefetch: true */ "./pages/user/Dashboard/UserDash")
 );
 
+const UserProfile = lazy(() =>
+  import(/* webpackPrefetch: true */ "./pages/user/profile/UserProfile")
+);
+
 // User Formulir
 const Formulir = lazy(() =>
   import(/* webpackPrefetch: true */ "./pages/user/Formulir/Formulir")
@@ -132,6 +136,7 @@ const App = () => {
           <Route path="/user-formulir" element={<Formulir />} />
           <Route path="/user-pembayaran" element={<Pembayaran />} />
           <Route path="/user-kuisioner" element={<Kuisioner />} />
+          <Route path="/user-profile" element={<UserProfile />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

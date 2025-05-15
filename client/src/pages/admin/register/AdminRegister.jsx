@@ -106,7 +106,7 @@ const AdminRegister = () => {
   ];
 
   return (
-    <AdminLayout>
+    <AdminLayout title="Manajemen Pendaftaran">
       <Space direction="vertical" size="large" style={{ width: "100%" }}>
         <Card>
           <Title level={4}>Manajemen Pendaftaran</Title>
