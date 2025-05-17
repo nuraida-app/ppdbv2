@@ -23,7 +23,7 @@ export const ApiAuth = createApi({
     }),
     signup: builder.mutation({
       query: (body) => ({
-        url: "/signup",
+        url: "/sign-up",
         method: "POST",
         body,
       }),
