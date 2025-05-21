@@ -9,17 +9,34 @@ import {
   message,
   Row,
   Col,
+  Select,
 } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
+import { useUploadPaymentMutation } from "../../../controller/api/payment/ApiPayment";
 
 const PaymentForm = ({ user }) => {
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState([]);
+  const [uploadPayment, { isLoading }] = useUploadPaymentMutation();
 
-  const onFinish = (values) => {
-    console.log("Form values:", values);
-    console.log("File:", fileList);
-    message.success("Data pembayaran berhasil disimpan!");
+  const onFinish = async (values) => {
+    if (!fileList.length) {
+      message.error("Bukti pembayaran harus diupload!");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("nama", values.nama);
+    formData.append("nominal", values.nominal);
+    formData.append("media", values.media);
+    formData.append("file", fileList[0].originFileObj);
+    try {
+      await uploadPayment(formData).unwrap();
+      message.success("Data pembayaran berhasil disimpan!");
+      form.resetFields();
+      setFileList([]);
+    } catch (error) {
+      message.error(error?.data?.message || "Gagal menyimpan pembayaran");
+    }
   };
 
   const normFile = (e) => {
@@ -70,12 +87,19 @@ const PaymentForm = ({ user }) => {
           <Col xs={24} md={12}>
             <Form.Item
               name="media"
-              label="Media Pembayaran"
+              label="Media Informasi"
               rules={[
-                { required: true, message: "Media pembayaran harus diisi!" },
+                { required: true, message: "Media informasi harus diisi!" },
               ]}
             >
-              <Input placeholder="Contoh: Transfer Bank BCA" />
+              <Select placeholder="Pilih Media Informasi">
+                <Select.Option value="Website">Website</Select.Option>
+                <Select.Option value="Instagram">Instagram</Select.Option>
+                <Select.Option value="Facebook">Facebook</Select.Option>
+                <Select.Option value="YouTube">YouTube</Select.Option>
+                <Select.Option value="Radio">Radio</Select.Option>
+                <Select.Option value="Kerabat">Kerabat</Select.Option>
+              </Select>
             </Form.Item>
           </Col>
           <Col xs={24} md={12}>
@@ -106,7 +130,7 @@ const PaymentForm = ({ user }) => {
         </Row>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={isLoading}>
             Simpan Pembayaran
           </Button>
         </Form.Item>

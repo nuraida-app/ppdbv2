@@ -12,6 +12,8 @@ const Pembayaran = () => {
     skip: !user?.id,
   });
 
+  console.log(data);
+
   if (isLoading) {
     return (
       <UserLayout title="Pembayaran">
@@ -27,7 +29,17 @@ const Pembayaran = () => {
 
   return (
     <UserLayout title="Pembayaran">
-      {data?.ket ? <Invoice data={data} /> : <PaymentForm user={user} />}
+      {!data && <PaymentForm user={user} />}
+      {data && !data?.ket && (
+        <Card>
+          <div style={{ textAlign: "center", padding: "40px 0" }}>
+            <p style={{ fontSize: 18, color: "#faad14" }}>
+              Menunggu konfirmasi pembayaran...
+            </p>
+          </div>
+        </Card>
+      )}
+      {data?.ket && <Invoice data={data} />}
     </UserLayout>
   );
 };

@@ -132,8 +132,7 @@ router.post(
   async (req, res) => {
     const { nama, nominal, media } = req.body;
 
-    const imgLink =
-      process.env.SERVER + "/assets/pembayaran/" + req.file.filename;
+    const imgLink = "/assets/pembayaran/" + req.file.filename;
 
     await client.query(
       `INSERT INTO pembayaran(nama, nominal, berkas, user_id, media)
