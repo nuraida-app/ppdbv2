@@ -59,6 +59,7 @@ router.get("/proses", authorize("admin"), async (req, res) => {
       ? `%${req.query.search.toLowerCase()}%`
       : null;
     const status = req.query.status;
+    const level = req.query.level;
 
     const offset = (page - 1) * limit;
 
@@ -79,6 +80,12 @@ router.get("/proses", authorize("admin"), async (req, res) => {
     if (status) {
       whereClause.push(`p.status_pendaftaran = $${paramCount}`);
       queryParams.push(status);
+      paramCount++;
+    }
+
+    if (level) {
+      whereClause.push(`p.jenjang_id = $${paramCount}`);
+      queryParams.push(level);
       paramCount++;
     }
 

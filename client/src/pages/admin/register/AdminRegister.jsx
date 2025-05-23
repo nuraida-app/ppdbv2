@@ -9,9 +9,13 @@ import {
   Typography,
   message,
 } from "antd";
-import { useGetFormsQuery } from "../../../controller/api/form/ApiForm";
+import {
+  useGetFormsQuery,
+  useChangeStatusMutation,
+} from "../../../controller/api/form/ApiForm";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "../Layout/AdminLayout";
+import { useGetLevelsMutation } from "../../../controller/api/admin/ApiGrade";
 
 const { Title, Text } = Typography;
 const { Search } = Input;
@@ -19,6 +23,7 @@ const { Search } = Input;
 const AdminRegister = () => {
   const navigate = useNavigate();
   const [status, setStatus] = useState(null); // null means show all statuses
+  const [level, setLevel] = useState(null);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [limit] = useState(10);
@@ -28,7 +33,14 @@ const AdminRegister = () => {
     page,
     limit,
     search,
+    level,
   });
+  const [getLevels, { data: levels }] = useGetLevelsMutation();
+
+  const [
+    changeStatus,
+    { isSuccess, error: changeStatusError, data: changeStatusData },
+  ] = useChangeStatusMutation();
 
   useEffect(() => {
     if (error) {
@@ -46,6 +58,27 @@ const AdminRegister = () => {
     setSearch(value);
     setPage(1); // Reset to first page when search changes
   };
+
+  const handleActionChange = async (value, record) => {
+    if (value === "detail") {
+      navigate(`/admin-pendaftar/${record.userid}`);
+    } else {
+      await changeStatus({ id: record.userid, status: value });
+    }
+  };
+
+  useEffect(() => {
+    if (isSuccess) {
+      message.success(changeStatusData.message);
+    }
+    if (changeStatusError) {
+      message.error(changeStatusError.data.message);
+    }
+  }, [isSuccess, changeStatusData, changeStatusError]);
+
+  useEffect(() => {
+    getLevels({ page: "", limit: "", search: "" });
+  }, [getLevels]);
 
   const columns = [
     {
@@ -96,11 +129,17 @@ const AdminRegister = () => {
       title: "Aksi",
       key: "action",
       render: (_, record) => (
-        <Space size="middle">
-          <a onClick={() => navigate(`/admin-pendaftar/${record.userid}`)}>
-            Lihat Detail
-          </a>
-        </Space>
+        <Select
+          value={record.status_pendaftaran}
+          style={{ width: 120 }}
+          onChange={(value) => handleActionChange(value, record)}
+          options={[
+            { value: "Diproses", label: "Diproses" },
+            { value: "Diterima", label: "Diterima" },
+            { value: "Ditolak", label: "Ditolak" },
+            { value: "detail", label: "Detail" },
+          ]}
+        />
       ),
     },
   ];
@@ -122,6 +161,17 @@ const AdminRegister = () => {
                 { value: "Diterima", label: "Diterima" },
                 { value: "Ditolak", label: "Ditolak" },
               ]}
+            />
+            <Select
+              value={level}
+              onChange={(value) => setLevel(value)}
+              style={{ width: 120 }}
+              placeholder="Jenjang"
+              allowClear
+              options={levels?.map((level) => ({
+                value: level.id,
+                label: level.nama,
+              }))}
             />
             <Search
               placeholder="Cari pendaftar..."

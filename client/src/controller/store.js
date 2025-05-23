@@ -23,6 +23,8 @@ import { ApiArea } from "./api/form/ApiArea";
 // Quiz
 import { ApiQuiz } from "./api/quiz/ApiQuiz";
 
+const isDev = import.meta.env.VITE_MODE === "development";
+
 const store = configureStore({
   reducer: {
     auth: AuthSlice,
@@ -68,7 +70,7 @@ const store = configureStore({
       ApiForm.middleware,
       ApiArea.middleware,
     ]),
-  devTools: true,
+  devTools: isDev,
 });
 
 export default store;

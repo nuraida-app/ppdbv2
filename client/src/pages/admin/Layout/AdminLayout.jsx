@@ -41,7 +41,6 @@ const AdminLayout = ({ children, title }) => {
   } = theme.useToken();
 
   const { user } = useSelector((state) => state.auth);
-  console.log(user);
 
   // Get current path without leading slash
   const currentPath = location.pathname.replace("/admin-", "");

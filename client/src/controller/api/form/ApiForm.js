@@ -27,10 +27,11 @@ export const ApiForm = createApi({
       invalidatesTags: ["form", "forms"],
     }),
     getForms: builder.query({
-      query: ({ status, page, limit, search }) => {
+      query: ({ status, page, limit, search, level }) => {
         const params = { page, limit };
         if (status) params.status = status;
         if (search) params.search = search;
+        if (level) params.level = level;
 
         return {
           url: `/proses`,
